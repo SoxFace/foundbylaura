@@ -73,31 +73,18 @@
 				$( '#st-stack' ).stackslider();
 
 				var token = '184650387.1677ed0.9dd4619cc4ac43f6aaca657f503763c7',
-				    username = 'rudrastyh', // rudrastyh - my username :)
-				    num_photos = 4;
+				    num_photos = 10;
 				 
-				$.ajax({ // the first ajax request returns the ID of user rudrastyh
-					url: 'https://api.instagram.com/v1/users/search',
+				$.ajax({
+					url: 'https://api.instagram.com/v1/users/self/media/recent',
 					dataType: 'jsonp',
 					type: 'GET',
-					data: {access_token: token, q: username}, // actually it is just the search by username
+					data: {access_token: token, count: num_photos},
 					success: function(data){
-						console.log(data);
-						$.ajax({
-							url: 'https://api.instagram.com/v1/users/' + data.data[0].id + '/media/recent', // specify the ID of the first found user
-							dataType: 'jsonp',
-							type: 'GET',
-							data: {access_token: token, count: num_photos},
-							success: function(data2){
-								console.log(data2);
-								for(x in data2.data){
-									$('ul').append('<li><img src="'+data2.data[x].images.thumbnail.url+'"></li>');  
-								}
-				    			},
-							error: function(data2){
-								console.log(data2);
-							}
-						});
+				 		console.log(data);
+						for( x in data.data ){
+							$('ul').append('<li><img src="'+data.data[x].images.low_resolution.url+'"></li>');
+						}
 					},
 					error: function(data){
 						console.log(data);
