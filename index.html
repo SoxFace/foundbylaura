@@ -16,23 +16,10 @@
 	</head>
 	<body>
 		<div class="container">	
-
-			<!-- Codrops top bar -->
-			<div class="codrops-top clearfix">
-				<a href="http://tympanus.net/Development/SimpleDropDownEffects/">
-					<strong>&laquo; Previous Demo: </strong>Simple Effects for Drop-Down Lists
-				</a>
-				<span class="right">
-					<a href="http://dribbble.com/isaac317">Illustrations by Isaac Montemayor</a>
-					<a href="http://tympanus.net/codrops/?p=12566">
-						<strong>Back to the Codrops Article</strong>
-					</a>
-				</span>
-			</div><!--/ Codrops top bar -->
 			
 			<header class="clearfix">
 			
-				<h1>StackSlider<span>A fun 3D image slider</span></h1>
+				<h1>FOUND<span>by Laura</span></h1>
 				<p>Best viewed in WebKit browsers!</p>
 				<div class="support-note">
 					<span class="note-ie">Sorry, only modern browsers</span>
@@ -43,7 +30,8 @@
 			<section class="main">
 
 				<ul id="st-stack" class="st-stack-raw">
-					<li><div class="st-item"><a href="http://drbl.in/fgQV"><img src="images/1.jpg"/></a></div><div class="st-title"><h2>Graverobber</h2><h3>by Isaac Montemayor</h3></div></li>
+					<!-- <li><div class="st-item"><img id="instagram" src=""/></div></li> -->
+
 					<li><div class="st-item"><a href="http://drbl.in/fpRz"><img src="images/2.jpg"/></a></div><div class="st-title"><h2>Hideous Snake Queen</h2><h3>by Isaac Montemayor</h3></div></li>
 					<li><div class="st-item"><a href="http://drbl.in/fGVs"><img src="images/3.jpg"/></a></div><div class="st-title"><h2>Queen of Hearts</h2><h3>by Isaac Montemayor</h3></div></li>
 					<li><div class="st-item"><a href="http://drbl.in/fgvZ"><img src="images/4.jpg"/></a></div><div class="st-title"><h2>Dead Pirate vs Kraken</h2><h3>by Isaac Montemayor</h3></div></li>
@@ -61,7 +49,9 @@
 				<p>Tip: to see a continuous flow, keep your mouse pressed on the navigation arrows.</p>
 			</section>
 
-			<ul id="rudr_instafeed"></ul>
+<!-- 			<h1>Connected to Instagram API</h1>
+				<ul id="soxface" class="st-stack-raw">
+			</ul> -->
 
 		</div><!-- /container -->
 		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
@@ -69,27 +59,27 @@
 		<script type="text/javascript">
 			
 			$( function() {
-				
-				$( '#st-stack' ).stackslider();
 
-				var token = '184650387.1677ed0.9dd4619cc4ac43f6aaca657f503763c7',
-				    num_photos = 10;
-				 
-				$.ajax({
-					url: 'https://api.instagram.com/v1/users/self/media/recent',
-					dataType: 'jsonp',
-					type: 'GET',
-					data: {access_token: token, count: num_photos},
-					success: function(data){
-				 		console.log(data);
-						for( x in data.data ){
-							$('ul').append('<li><img src="'+data.data[x].images.low_resolution.url+'"></li>');
+					$( '#st-stack' ).stackslider();
+
+					var token = '184650387.1677ed0.9dd4619cc4ac43f6aaca657f503763c7',
+					    num_photos = 10;
+					 
+					$.ajax({
+						url: 'https://api.instagram.com/v1/users/self/media/recent',
+						dataType: 'jsonp',
+						type: 'GET',
+						data: {access_token: token, count: num_photos},
+						success: function(data){
+					 		console.log(data);
+							for( x in data.data ){
+								$('#instagram').attr('src', data.data[x].images.low_resolution.url);
+							}
+						},
+						error: function(data){
+							console.log(data);
 						}
-					},
-					error: function(data){
-						console.log(data);
-					}
-				});
+					});
 
 				});
 
